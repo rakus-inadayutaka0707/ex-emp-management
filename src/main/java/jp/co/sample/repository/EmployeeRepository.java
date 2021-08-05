@@ -37,8 +37,8 @@ public class EmployeeRepository {
 		employee.setAddress(rs.getString("address"));
 		employee.setTelephone(rs.getString("telephone"));
 		employee.setSalary(rs.getInt("salary"));
-		employee.setCharacteristics(rs.getString("charactertistics"));
-		employee.setDepartmentsCount(rs.getInt("department_count"));
+		employee.setCharacteristics(rs.getString("characteristics"));
+		employee.setDependentsCount(rs.getInt("dependents_count"));
 		return employee;
 	};
 
@@ -48,7 +48,7 @@ public class EmployeeRepository {
 	 * @return 従業員一覧情報
 	 */
 	public List<Employee> findAll() {
-		String sql = "select id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,caractertistics,department_count from employees order by hire_date desc;";
+		String sql = "select id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees order by hire_date desc;";
 		List<Employee> employeeList = template.query(sql, EMPLOYEE_ROW_MAPPER);
 		return employeeList;
 	}
@@ -60,7 +60,7 @@ public class EmployeeRepository {
 	 * @return 検索した従業員情報
 	 */
 	public Employee load(Integer id) {
-		String sql = "select id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,caractertistics,department_count from employees where id=:id;";
+		String sql = "select id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees where id=:id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Employee employee = template.queryForObject(sql, param, EMPLOYEE_ROW_MAPPER);
 		return employee;
@@ -73,7 +73,7 @@ public class EmployeeRepository {
 	 */
 	public void update(Employee employee) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
-		String updateSql = "update employee set name=:name,image=:image,gender=:gender,hire_date=:hireDate,mail_address=:mailAddress,zip_code=:zipCode,address=:address,telephone=:telephone,salary=:salary,caractertistics=:caractertistics,department_count=:departmentCount where id=:id;";
+		String updateSql = "update employee set name=:name,image=:image,gender=:gender,hire_date=:hireDate,mail_address=:mailAddress,zip_code=:zipCode,address=:address,telephone=:telephone,salary=:salary,characteristics=:characteristics,dependents_count=:dependentsCount where id=:id;";
 		template.update(updateSql, param);
 	}
 }

@@ -20,7 +20,7 @@ public class Employee {
 	private String telephone;
 	private Integer salary;
 	private String characteristics;
-	private Integer departmentsCount;
+	private Integer dependentsCount;
 
 	public Integer getId() {
 		return id;
@@ -110,12 +110,12 @@ public class Employee {
 		this.characteristics = characteristics;
 	}
 
-	public Integer getDepartmentsCount() {
-		return departmentsCount;
+	public Integer getDependentsCount() {
+		return dependentsCount;
 	}
 
-	public void setDepartmentsCount(Integer departmentsCount) {
-		this.departmentsCount = departmentsCount;
+	public void setDependentsCount(Integer dependentsCount) {
+		this.dependentsCount = dependentsCount;
 	}
 
 	@Override
@@ -123,6 +123,6 @@ public class Employee {
 		return "Employee [id=" + id + ", name=" + name + ", image=" + image + ", gender=" + gender + ", hireDate="
 				+ hireDate + ", mailAddress=" + mailAddress + ", zipCode=" + zipCode + ", address=" + address
 				+ ", telephone=" + telephone + ", salary=" + salary + ", characteristics=" + characteristics
-				+ ", departmentsCount=" + departmentsCount + "]";
+				+ ", dependentsCount=" + dependentsCount + "]";
 	}
 }
