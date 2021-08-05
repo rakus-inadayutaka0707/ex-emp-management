@@ -1,8 +1,11 @@
 package jp.co.sample.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,6 +27,9 @@ public class AdministratorController {
 	@Autowired
 	private AdministratorService service;
 
+	@Autowired
+	private HttpSession session;
+
 	@ModelAttribute
 	private InsertAdministratorForm setUpInsertAdministratorForm() {
 		return new InsertAdministratorForm();
@@ -35,7 +41,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * insert.htmlにフォワードする.
+	 * 管理者情報画面にフォワードする.
 	 * 
 	 * @return 管理者登録画面を表示する
 	 */
@@ -59,12 +65,32 @@ public class AdministratorController {
 	}
 
 	/**
-	 * login.htmlにフォワードする.
+	 * ログイン画面にフォワードする.
 	 * 
-	 * @return
+	 * @return ログイン画面を表示する
 	 */
 	@RequestMapping("/")
 	public String toLogin() {
 		return "administrator/login";
+	}
+
+	/**
+	 * 管理者情報が正しいか判断する.
+	 * 
+	 * @param form  フォームに入力されたメールアドレスとパスワード
+	 * @param model フォワードした際に表示する情報
+	 * @return 情報が正しければ従業員情報画面、正しくなければログイン画面へフォワード
+	 * 
+	 */
+	@RequestMapping("/login")
+	public String login(LoginForm form, Model model) {
+		Administrator administrator = service.login(form.getMailAddress(), form.getPassword());
+		if (administrator == null) {
+			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
+			return "administrator/login";
+		}
+
+		session.setAttribute("administratorName", administrator);
+		return "forward:/employee/showList";
 	}
 }
