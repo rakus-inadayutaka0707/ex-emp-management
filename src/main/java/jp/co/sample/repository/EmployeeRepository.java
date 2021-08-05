@@ -12,6 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sample.domain.Employee;
 
+/**
+ * employeesテーブルに接続しDB操作するためのRepository.<br>
+ * 全件検索と1件検索と情報更新メソッドがあります。
+ * 
+ * @author inada
+ *
+ */
 @Repository
 public class EmployeeRepository {
 
